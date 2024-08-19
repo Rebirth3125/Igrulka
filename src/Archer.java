@@ -1,7 +1,7 @@
 public class Archer extends Hero {
 
     public Archer(String name) {
-        super(name, 70);
+        super(name, 80, 0);
     }
 
     @Override
@@ -14,8 +14,8 @@ public class Archer extends Hero {
         }
     }
 
-    public void poisonArrow(Enemy enemy) {
-        System.out.println(name + " стреляет ядовитой стрелой!");
-        enemy.takeDamage(10);
-    }
+//    public void poisonArrow(Enemy enemy) {
+//        System.out.println(name + " стреляет ядовитой стрелой!");
+//        enemy.takeDamage(10);
+//    }
 }

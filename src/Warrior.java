@@ -1,7 +1,7 @@
 public class Warrior extends Hero {
 
     public Warrior(String name) {
-        super(name, 100);
+        super(name, 80, 0);
     }
 
     @Override

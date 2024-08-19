@@ -27,6 +27,11 @@ public class Enemy implements Mortal {
         return health > 0;
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
     public void attackHero(Hero hero) {
         int damage = 5;
         System.out.println("Враг атакует " + hero.getName() + " и наносит " + damage + " урона");

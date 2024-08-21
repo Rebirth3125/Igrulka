@@ -1,4 +1,4 @@
-public class Enemy implements Mortal {
+public abstract class Enemy implements Mortal {
     protected int health;
 
     public Enemy(int health) {
@@ -14,12 +14,11 @@ public class Enemy implements Mortal {
     }
 
     public void takeDamage(int damage) {
-        if (health - damage < 0) {
+        health -= damage;
+        if (health < 0) {
             health = 0;
-        } else {
-            health -= damage;
         }
-        System.out.println("Враг получает " + damage + " урона, здоровье врага: " + health);
+        System.out.println(getClass().getSimpleName() + " получает " + damage + " урона, текущее здоровье: " + health);
     }
 
     @Override
@@ -27,14 +26,10 @@ public class Enemy implements Mortal {
         return health > 0;
     }
 
+    public abstract void attackHero(Hero hero);
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
-    }
-
-    public void attackHero(Hero hero) {
-        int damage = 5;
-        System.out.println("Враг атакует " + hero.getName() + " и наносит " + damage + " урона");
-        hero.takeDamage(damage);
     }
 }

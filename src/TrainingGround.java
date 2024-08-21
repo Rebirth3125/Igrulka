@@ -1,6 +1,6 @@
 public class TrainingGround {
     public static void main(String[] args){
-        Enemy enemy = new Enemy(50);
+        Enemy enemy = new Goblin(20);
 
         Hero warrior = new Warrior("Колыван");
         warrior.attackEnemy(enemy);

@@ -1,4 +1,4 @@
-public abstract class Hero {
+public abstract class Hero implements Mortal {
     protected String name;
     protected int health;
     protected int mana;

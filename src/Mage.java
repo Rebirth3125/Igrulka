@@ -8,12 +8,12 @@ public class Mage extends Hero {
     public void attackEnemy(Enemy enemy) {
         if (mana >= 20) {
             int damage = 30;
-            System.out.println(name + " использует мощное заклинание, нанося " + damage + " урона");
+            System.out.println(getClass().getSimpleName() + " использует мощное заклинание, нанося " + damage + " урона");
             enemy.takeDamage(damage);
             mana -= 20;
         } else {
             int damage = 5;
-            System.out.println(name + " наносит обычный удар палкой, нанося " + damage + " урона");
+            System.out.println(getClass().getSimpleName() + " наносит обычный удар палкой, нанося " + damage + " урона");
             enemy.takeDamage(damage);
         }
 
@@ -23,9 +23,4 @@ public class Mage extends Hero {
 
         regenerateMana(10);
     }
-
-//    public void castSpell(Enemy enemy) {
-//        System.out.println(name + " накладывает дополнительное заклинание, ослабляя врага!");
-//        enemy.takeDamage(5);
-//    }
 }

@@ -7,7 +7,7 @@ public class Warrior extends Hero {
     @Override
     public void attackEnemy(Enemy enemy) {
         int damage = 10;
-        System.out.println(name + " атакует врага мечом, нанося " + damage + " урона");
+        System.out.println(getClass().getSimpleName() + " атакует врага мечом, нанося " + damage + " урона");
         enemy.takeDamage(damage);
         if (enemy.isAlive()) {
             enemy.attackHero(this);
@@ -18,6 +18,6 @@ public class Warrior extends Hero {
     public void takeDamage(int damage) {
         int reducedDamage = (int) (damage * 0.7);
         super.takeDamage(reducedDamage);
-        System.out.println(name + " блокирует часть урона. Получено урона: " + reducedDamage);
+        System.out.println(getClass().getSimpleName() + " блокирует часть урона. Получено урона: " + reducedDamage);
     }
 }

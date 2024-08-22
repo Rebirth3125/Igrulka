@@ -7,70 +7,91 @@ import Characters.Enemies.Goblin;
 import Characters.Enemies.Zombie;
 import Characters.Enemies.Wolf;
 
-
 import java.util.Scanner;
 
 public class BattleGround {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Hero hero = null;
+        boolean playAgain;
 
-        System.out.println("Выберите героя:");
-        System.out.println("1 - Воин");
-        System.out.println("2 - Маг");
-        System.out.println("3 - Лучник");
-        System.out.print("Ваш выбор: ");
+        do {
+            Hero hero = selectHero(scanner);
 
-        int choice = scanner.nextInt();
+            Enemy[] enemies = createEnemies();
 
-        switch (choice) {
-            case 1:
-                hero = new Warrior("Колыван");
-                break;
-            case 2:
-                hero = new Mage("Шаровой");
-                break;
-            case 3:
-                hero = new Archer("Одноглазый снайпер");
-                break;
-            default:
-                System.out.println("Неверный выбор, по умолчанию выбран Воин.");
-                hero = new Warrior("Колыван");
-                break;
-        }
+            System.out.println("\n=== БОЙ НАЧИНАЕТСЯ! ===");
 
-        Enemy zombie = new Zombie(50);
-        Enemy goblin = new Goblin(20);
-        Enemy wolf = new Wolf(30);
+            for (Enemy enemy : enemies) {
+                System.out.println("\n--- " + hero.getName() + " сталкивается с новым врагом: " + enemy.getClass().getSimpleName() + " ---\n");
 
-        Enemy[] enemies = {zombie, goblin, wolf};
-
-        System.out.println("\n=== БОЙ НАЧИНАЕТСЯ! ===");
-
-        for (Enemy enemy : enemies) {
-            System.out.println("\n--- " + hero.getName() + " сталкивается с новым врагом: " + enemy + " ---\n");
-
-            while (hero.isAlive() && enemy.isAlive()) {
-                hero.attackEnemy(enemy);
-                if (!enemy.isAlive()) {
-                    System.out.println("\n=== " + enemy + " повержен! ===");
+                while (hero.isAlive() && enemy.isAlive()) {
+                    hero.attackEnemy(enemy);
+                    if (!enemy.isAlive()) {
+                        System.out.println("\n=== " + enemy.getClass().getSimpleName() + " повержен! ===");
+                    }
+                    if (!hero.isAlive()) {
+                        System.out.println("\n=== " + hero.getName() + " пал в бою! ===");
+                        break;
+                    }
                 }
-                if (!hero.isAlive()) {
-                    System.out.println("\n=== " + hero.getName() + " пал в бою! ===");
+
+                if (hero.isAlive()) {
+                    System.out.println("\n--------------------\n");
+                } else {
                     break;
                 }
             }
 
-            if (hero.isAlive() && enemy.isAlive()) {
-                System.out.println("\n--------------------\n");
-            }
+            System.out.println("\n=== БОЙ ЗАВЕРШЕН! ===");
 
-            if (!hero.isAlive()) {
-                break;
+            playAgain = askToPlayAgain(scanner);
+
+        } while (playAgain);
+
+        scanner.close();
+    }
+
+    private static Hero selectHero(Scanner scanner) {
+        Hero hero = null;
+        while (hero == null) {
+            System.out.println("Выберите героя:");
+            System.out.println("1 - Воин");
+            System.out.println("2 - Маг");
+            System.out.println("3 - Лучник");
+            System.out.print("Ваш выбор: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    hero = new Warrior("Колыван");
+                    break;
+                case 2:
+                    hero = new Mage("Шаровой");
+                    break;
+                case 3:
+                    hero = new Archer("Одноглазый снайпер");
+                    break;
+                default:
+                    System.out.println("Неверный выбор, попробуйте снова.");
+                    break;
             }
         }
+        return hero;
+    }
 
-        System.out.println("\n=== БОЙ ЗАВЕРШЕН! ===");
-        scanner.close();
+    private static Enemy[] createEnemies() {
+        Enemy zombie = new Zombie(50);
+        Enemy goblin = new Goblin(20);
+        Enemy wolf = new Wolf(30);
+
+        return new Enemy[]{zombie, goblin, wolf};
+    }
+
+    private static boolean askToPlayAgain(Scanner scanner) {
+        System.out.println("\nХотите сыграть снова? (1 - Да, 2 - Нет)");
+        int choice = scanner.nextInt();
+        return choice == 1;
     }
 }

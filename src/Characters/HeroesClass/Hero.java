@@ -15,6 +15,22 @@ public abstract class Hero extends Entity {
         this.mana = maxMana;
     }
 
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
+    }
+
     public String getName() {
         return name;
     }

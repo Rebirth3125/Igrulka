@@ -16,6 +16,4 @@ public abstract class Enemy extends Entity {
         return this.getClass().getSimpleName();
     }
 
-    public void takeDamage(int damage) {
-    }
 }

@@ -4,35 +4,47 @@ import Characters.Enemies.Enemy;
 
 public class Mage extends Hero {
 
+    private static final int BASE_DAMAGE = 5;
+    private static final int SPELL_DAMAGE = 30;
+    private static final int MANA_COST = 20;
+    private static final int MANA_REGEN = 10;
+
     public Mage(String name) {
         super(name, 80, 20);
     }
 
     @Override
     public void attackEnemy(Enemy enemy) {
-        if (mana >= 20) {
-            int damage = 30;
-            System.out.println(getClass().getSimpleName() + " использует мощное заклинание, нанося " + damage + " урона");
-            enemy.takeDamage(damage);
-            mana -= 20;
+        if (canCastSpell()) {
+            castSpell(enemy);
         } else {
-            int damage = 5;
-            System.out.println(getClass().getSimpleName() + " наносит обычный удар палкой, нанося " + damage + " урона");
-            enemy.takeDamage(damage);
+            staffAttack(enemy);
         }
 
         if (enemy.isAlive()) {
             enemy.attackHero(this);
         }
 
-        regenerateMana(10);
+        regenerateMana(MANA_REGEN);
     }
 
-    public void regenerateMana(int amount) {
-        this.mana += amount;
-        if (this.mana > maxMana) {
-            this.mana = maxMana;
-        }
-        System.out.println(getClass().getSimpleName() + " восстанавливает " + amount + " маны, текущее количество маны: " + this.mana);
+    private boolean canCastSpell() {
+        return getMana() >= MANA_COST;
+    }
+
+    private void castSpell(Enemy enemy) {
+        System.out.println(getClass().getSimpleName() + " использует мощное заклинание, нанося " + SPELL_DAMAGE + " урона");
+        enemy.takeDamage(SPELL_DAMAGE);
+        setMana(getMana() - MANA_COST);
+    }
+
+    private void staffAttack(Enemy enemy) {
+        System.out.println(getClass().getSimpleName() + " наносит обычный удар палкой, нанося " + BASE_DAMAGE + " урона");
+        enemy.takeDamage(BASE_DAMAGE);
+    }
+
+    private void regenerateMana(int amount) {
+        setMana(Math.min(getMana() + amount, getMaxMana()));
+        System.out.println(getClass().getSimpleName() + " восстанавливает " + amount + " маны, текущее количество маны: " + getMana());
     }
 }

@@ -1,3 +1,8 @@
+package Characters.HeroesClass;
+
+import Characters.Enemies.Enemy;
+import Characters.Entity;
+
 public abstract class Hero extends Entity {
     protected String name;
     protected int mana;

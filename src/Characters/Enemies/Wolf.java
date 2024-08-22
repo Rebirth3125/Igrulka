@@ -1,3 +1,7 @@
+package Characters.Enemies;
+
+import Characters.HeroesClass.Hero;
+
 public class Wolf extends Enemy {
 
     public Wolf(int health) {

@@ -1,3 +1,10 @@
+import Characters.Enemies.Enemy;
+import Characters.Enemies.Goblin;
+import Characters.HeroesClass.Archer;
+import Characters.HeroesClass.Hero;
+import Characters.HeroesClass.Mage;
+import Characters.HeroesClass.Warrior;
+
 public class TrainingGround {
     public static void main(String[] args){
         Enemy enemy = new Goblin(20);

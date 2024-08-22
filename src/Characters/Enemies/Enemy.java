@@ -1,3 +1,8 @@
+package Characters.Enemies;
+
+import Characters.HeroesClass.Hero;
+import Characters.Entity;
+
 public abstract class Enemy extends Entity {
 
     public Enemy(int health) {
@@ -9,5 +14,8 @@ public abstract class Enemy extends Entity {
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
+    }
+
+    public void takeDamage(int damage) {
     }
 }

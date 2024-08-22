@@ -1,3 +1,7 @@
+package Characters;
+
+import Other.Mortal;
+
 public abstract class Entity implements Mortal {
     protected int health;
 

@@ -1,3 +1,7 @@
+package Characters.HeroesClass;
+
+import Characters.Enemies.Enemy;
+
 public class Archer extends Hero {
 
     public Archer(String name) {

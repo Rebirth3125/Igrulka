@@ -1,3 +1,7 @@
+package Characters.Enemies;
+
+import Characters.HeroesClass.Hero;
+
 import java.util.Random;
 
 public class Goblin extends Enemy {

@@ -15,12 +15,4 @@ public abstract class Hero extends Entity {
     }
 
     public abstract void attackEnemy(Enemy enemy);
-
-    protected void regenerateMana(int amount) {
-        this.mana += amount;
-        if (this.mana > maxMana) {
-            this.mana = maxMana;
-        }
-        System.out.println(getClass().getSimpleName() + " восстанавливает " + amount + " маны, текущее количество маны: " + this.mana);
-    }
 }

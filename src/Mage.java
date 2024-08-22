@@ -23,4 +23,12 @@ public class Mage extends Hero {
 
         regenerateMana(10);
     }
+
+    public void regenerateMana(int amount) {
+        this.mana += amount;
+        if (this.mana > maxMana) {
+            this.mana = maxMana;
+        }
+        System.out.println(getClass().getSimpleName() + " восстанавливает " + amount + " маны, текущее количество маны: " + this.mana);
+    }
 }

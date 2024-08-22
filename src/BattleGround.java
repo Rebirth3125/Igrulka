@@ -1,8 +1,33 @@
+import java.util.Scanner;
+
 public class BattleGround {
     public static void main(String[] args) {
-//        Hero hero = new Warrior("Колыван");
-        Hero hero = new Mage("Шаровой");
-//        Hero hero = new Archer("Одноглазый снайпер");
+        Scanner scanner = new Scanner(System.in);
+        Hero hero = null;
+
+        System.out.println("Выберите героя:");
+        System.out.println("1 - Воин");
+        System.out.println("2 - Маг");
+        System.out.println("3 - Лучник");
+        System.out.print("Ваш выбор: ");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                hero = new Warrior("Колыван");
+                break;
+            case 2:
+                hero = new Mage("Шаровой");
+                break;
+            case 3:
+                hero = new Archer("Одноглазый снайпер");
+                break;
+            default:
+                System.out.println("Неверный выбор, по умолчанию выбран Воин.");
+                hero = new Warrior("Колыван");
+                break;
+        }
 
         Enemy zombie = new Zombie(50);
         Enemy goblin = new Goblin(20);
@@ -10,7 +35,7 @@ public class BattleGround {
 
         Enemy[] enemies = {zombie, goblin, wolf};
 
-        System.out.println("=== БОЙ НАЧИНАЕТСЯ! ===");
+        System.out.println("\n=== БОЙ НАЧИНАЕТСЯ! ===");
 
         for (Enemy enemy : enemies) {
             System.out.println("\n--- " + hero.getName() + " сталкивается с новым врагом: " + enemy + " ---\n");
@@ -36,5 +61,6 @@ public class BattleGround {
         }
 
         System.out.println("\n=== БОЙ ЗАВЕРШЕН! ===");
+        scanner.close();
     }
 }

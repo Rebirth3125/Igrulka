@@ -23,22 +23,10 @@ public class BattleGround {
             System.out.println("\n=== БОЙ НАЧИНАЕТСЯ! ===");
 
             for (Enemy enemy : enemies) {
-                System.out.println("\n--- " + hero.getName() + " сталкивается с новым врагом: " + enemy.getClass().getSimpleName() + " ---\n");
+                startBattle(hero, enemy);
 
-                while (hero.isAlive() && enemy.isAlive()) {
-                    hero.attackEnemy(enemy);
-                    if (!enemy.isAlive()) {
-                        System.out.println("\n=== " + enemy.getClass().getSimpleName() + " повержен! ===");
-                    }
-                    if (!hero.isAlive()) {
-                        System.out.println("\n=== " + hero.getName() + " пал в бою! ===");
-                        break;
-                    }
-                }
-
-                if (hero.isAlive()) {
-                    System.out.println("\n--------------------\n");
-                } else {
+                if (!hero.isAlive()) {
+                    System.out.println("\n=== " + hero.getName() + " пал в бою! ===");
                     break;
                 }
             }
@@ -52,30 +40,30 @@ public class BattleGround {
         scanner.close();
     }
 
+    private static void startBattle(Hero hero, Enemy enemy) {
+        System.out.println("\n--- " + hero.getName() + " сталкивается с новым врагом: " + enemy.getClass().getSimpleName() + " ---\n");
+
+        while (hero.isAlive() && enemy.isAlive()) {
+            hero.attackEnemy(enemy);
+            if (!enemy.isAlive()) {
+                System.out.println("\n=== " + enemy.getClass().getSimpleName() + " повержен! ===");
+            }
+        }
+    }
+
     private static Hero selectHero(Scanner scanner) {
         Hero hero = null;
         while (hero == null) {
             System.out.println("Выберите героя:");
-            System.out.println("1 - Воин");
-            System.out.println("2 - Маг");
-            System.out.println("3 - Лучник");
+            for (HeroType type : HeroType.values()) {
+                System.out.println(type.getOptionNumber() + " - " + type.getDisplayName());
+            }
             System.out.print("Ваш выбор: ");
 
             int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    hero = new Warrior("Колыван");
-                    break;
-                case 2:
-                    hero = new Mage("Шаровой");
-                    break;
-                case 3:
-                    hero = new Archer("Одноглазый снайпер");
-                    break;
-                default:
-                    System.out.println("Неверный выбор, попробуйте снова.");
-                    break;
+            hero = HeroType.getHeroByChoice(choice);
+            if (hero == null) {
+                System.out.println("Неверный выбор, попробуйте снова.");
             }
         }
         return hero;
@@ -93,5 +81,42 @@ public class BattleGround {
         System.out.println("\nХотите сыграть снова? (1 - Да, 2 - Нет)");
         int choice = scanner.nextInt();
         return choice == 1;
+    }
+
+    private enum HeroType {
+        WARRIOR(1, "Воин", new Warrior("Колыван")),
+        MAGE(2, "Маг", new Mage("Шаровой")),
+        ARCHER(3, "Лучник", new Archer("Одноглазый снайпер"));
+
+        private final int optionNumber;
+        private final String displayName;
+        private final Hero hero;
+
+        HeroType(int optionNumber, String displayName, Hero hero) {
+            this.optionNumber = optionNumber;
+            this.displayName = displayName;
+            this.hero = hero;
+        }
+
+        public int getOptionNumber() {
+            return optionNumber;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+
+        public Hero getHero() {
+            return hero;
+        }
+
+        public static Hero getHeroByChoice(int choice) {
+            for (HeroType type : values()) {
+                if (type.getOptionNumber() == choice) {
+                    return type.getHero();
+                }
+            }
+            return null;
+        }
     }
 }

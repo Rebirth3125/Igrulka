@@ -6,14 +6,18 @@ import java.util.Random;
 
 public class Goblin extends Enemy {
 
+    private static final int ATTACK_DAMAGE = 6;
+    private static final int EVASION_CHANCE_PERCENT = 50;
+    private final Random randomEvasion;
+
     public Goblin(int health) {
         super(health);
+        this.randomEvasion = new Random();
     }
 
     @Override
     public void takeDamage(int damage) {
-        Random random = new Random();
-        if (random.nextInt(100) < 50) { // 50% evasion
+        if (attemptEvasion()) {
             System.out.println("Гоблин уклоняется от атаки!");
         } else {
             super.takeDamage(damage);
@@ -22,8 +26,11 @@ public class Goblin extends Enemy {
 
     @Override
     public void attackHero(Hero hero) {
-        int damage = 6;
-        System.out.println("Гоблин атакует " + hero.getName() + " и наносит " + damage + " урона");
-        hero.takeDamage(damage);
+        System.out.println("Гоблин атакует " + hero.getName() + " и наносит " + ATTACK_DAMAGE + " урона");
+        hero.takeDamage(ATTACK_DAMAGE);
+    }
+
+    private boolean attemptEvasion() {
+        return randomEvasion.nextInt(100) < EVASION_CHANCE_PERCENT;
     }
 }

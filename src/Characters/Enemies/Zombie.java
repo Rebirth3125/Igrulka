@@ -5,29 +5,42 @@ import Characters.HeroesClass.Hero;
 import java.util.Random;
 
 public class Zombie extends Enemy {
+
+    private static final int REVIVAL_HEALTH = 20;
+    private static final int ATTACK_DAMAGE = 7;
+    private static final int REVIVAL_CHANCE_PERCENT = 50;
+
     private boolean hasRevived = false;
+    private final Random randomReincarnation;
 
     public Zombie(int health) {
         super(health);
+        this.randomReincarnation = new Random();
     }
 
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
+        attemptRevival();
+    }
+
+    private void attemptRevival() {
         if (!isAlive() && !hasRevived) {
-            Random random = new Random();
-            if (random.nextInt(100) < 50) { // 50% reincarnation
-                this.health = 20;
-                hasRevived = true;
-                System.out.println("Зомби воскресает с 20 единицами здоровья!");
+            if (randomReincarnation.nextInt(100) < REVIVAL_CHANCE_PERCENT) {
+                revive();
             }
         }
     }
 
+    private void revive() {
+        this.health = REVIVAL_HEALTH;
+        hasRevived = true;
+        System.out.println("Зомби воскресает с " + REVIVAL_HEALTH + " единицами здоровья!");
+    }
+
     @Override
     public void attackHero(Hero hero) {
-        int damage = 7;
-        System.out.println("Зомби атакует " + hero.getName() + " и наносит " + damage + " урона");
-        hero.takeDamage(damage);
+        System.out.println("Зомби атакует " + hero.getName() + " и наносит " + ATTACK_DAMAGE + " урона");
+        hero.takeDamage(ATTACK_DAMAGE);
     }
 }

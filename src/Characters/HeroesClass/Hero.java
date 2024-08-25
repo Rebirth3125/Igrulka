@@ -36,4 +36,5 @@ public abstract class Hero extends Entity {
     }
 
     public abstract void attackEnemy(Enemy enemy);
+
 }

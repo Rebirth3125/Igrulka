@@ -35,12 +35,12 @@ public class Zombie extends Enemy {
     private void revive() {
         this.health = REVIVAL_HEALTH;
         hasRevived = true;
-        System.out.println("Зомби воскресает с " + REVIVAL_HEALTH + " единицами здоровья!");
+        System.out.println(getClass().getSimpleName() + " воскресает с " + REVIVAL_HEALTH + " единицами здоровья!");
     }
 
     @Override
     public void attackHero(Hero hero) {
-        System.out.println("Зомби атакует " + hero.getName() + " и наносит " + ATTACK_DAMAGE + " урона");
+        System.out.println(getClass().getSimpleName() + " атакует " + hero.getClass().getSimpleName() + " и наносит " + ATTACK_DAMAGE + " урона");
         hero.takeDamage(ATTACK_DAMAGE);
     }
 }

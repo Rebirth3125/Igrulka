@@ -26,7 +26,7 @@ public class Wolf extends Enemy {
     }
 
     public void performAttack(Hero hero) {
-        System.out.println("Волк атакует " + hero.getName() + " и наносит " + Wolf.BASE_DAMAGE + " урона");
+        System.out.println(getClass().getSimpleName() + " атакует " + hero.getClass().getSimpleName() + " и наносит " + Wolf.BASE_DAMAGE + " урона");
         hero.takeDamage(Wolf.BASE_DAMAGE);
     }
 }

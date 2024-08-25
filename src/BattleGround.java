@@ -51,7 +51,7 @@ public class BattleGround {
         }
     }
 
-    private static Hero selectHero(Scanner scanner) {
+    static Hero selectHero(Scanner scanner) {
         Hero hero = null;
         while (hero == null) {
             System.out.println("Выберите героя:");
@@ -69,7 +69,7 @@ public class BattleGround {
         return hero;
     }
 
-    private static Enemy[] createEnemies() {
+    static Enemy[] createEnemies() {
         Enemy zombie = new Zombie(50);
         Enemy goblin = new Goblin(20);
         Enemy wolf = new Wolf(30);

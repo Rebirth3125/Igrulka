@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Goblin extends Enemy {
 
-    private static final int ATTACK_DAMAGE = 6;
+    private static final int ATTACK_DAMAGE = 8;
     private static final int EVASION_CHANCE_PERCENT = 50;
     private final Random randomEvasion;
 
@@ -26,7 +26,7 @@ public class Goblin extends Enemy {
 
     @Override
     public void attackHero(Hero hero) {
-        System.out.println("Гоблин атакует " + hero.getName() + " и наносит " + ATTACK_DAMAGE + " урона");
+        System.out.println(getClass().getSimpleName() + " атакует " + hero.getClass().getSimpleName() + " и наносит " + ATTACK_DAMAGE + " урона");
         hero.takeDamage(ATTACK_DAMAGE);
     }
 
